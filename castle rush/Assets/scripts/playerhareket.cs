@@ -28,6 +28,7 @@ public class playerhareket : MonoBehaviour
     public AudioSource olmeses;
     bool hizart = false;
     bool degdi = false;
+    public GameObject newhighskorimaj;
     void Start()
     {
         rampahiz = hiz + 7;
@@ -57,7 +58,7 @@ public class playerhareket : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "cikis") { hiz = esashiz; }
-        if (other.gameObject.tag == "summontetik") { degdi = true; summoncu.GetComponent<summoncu>().summon(); puan = puan + 10; puantext.GetComponent<Text>().text =puan.ToString() ;Destroy(other.gameObject);  if (puan > PlayerPrefs.GetInt("highscore")) { PlayerPrefs.SetInt("highscore", puan); } }
+        if (other.gameObject.tag == "summontetik") { degdi = true; summoncu.GetComponent<summoncu>().summon(); puan = puan + 10; puantext.GetComponent<Text>().text =puan.ToString() ;Destroy(other.gameObject);  if (puan > PlayerPrefs.GetInt("highscore")) { PlayerPrefs.SetInt("highscore", puan);newhighskorimaj.SetActive(true); } }
         if (other.gameObject.tag == "olum") { kosuses.Stop(); olmeses.Play(); hiz = 0; gameObject.GetComponent<Rigidbody>().isKinematic = true; karakterler.SetActive(false); kosmaefekt.SetActive(false); gameObject.GetComponent<SphereCollider>().enabled = false; Instantiate(olmeefekt, transform.position - new Vector3(0, -2, 1), transform.rotation); pausebuton.SetActive(false); Invoke("gameovergelme", 2.5f); }
     }
     private void OnCollisionEnter(Collision collision)
